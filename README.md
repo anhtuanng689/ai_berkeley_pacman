@@ -13,3 +13,9 @@
 - Tương tự câu 1, thay đổi cấu trúc dữ liệu thành Priority Queue và tính thêm chi phí cost.
 # Câu 4: A*
 - Tương tự câu 3, chi phí cost ở đây được tính bằng hàm heuristic (Manhattan) + cost.
+# Câu 5: Finding All the Corners
+- Tạo 1 mảng boolean để đánh dấu vị trị góc đã đi qua chưa với giá trị bằng False.
+- Khi toàn bộ giá trị trong mảng là True thì dừng.
+- Hàm getSuccessor trả về mảng gồm vị trí, các bước di chuyển và chi phí, trong đó state[0] là tọa độ, state[1] là mảng đánh dấu góc đã đi qua khi Pacman ở
+state[0] và thực hiện các bước di chuyển.
+- Kiểm tra Pacman có di chuyển 4 hướng được không, nếu được thì có di chuyển qua góc không, nếu có thì thay đổi mảng đánh dấu thành True rồi push vào successor.
