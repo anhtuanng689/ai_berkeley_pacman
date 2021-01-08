@@ -405,7 +405,15 @@ def cornersHeuristic(state, problem):
     walls = problem.walls # These are the walls of the maze, as a Grid (game.py)
 
     "*** YOUR CODE HERE ***"
-    return 0 # Default to trivial solution
+    h = 0
+    visitedCorners = state[1]
+    for x in range(4):
+        if not visitedCorners[x]:
+            xh, yh = state[0]
+            xc, yc = corners[x]
+            h  = max(h,(abs(xh-xc)+abs(yh-yc)))
+    return h
+    #return 0 # Default to trivial solution
 
 class AStarCornersAgent(SearchAgent):
     "A SearchAgent for FoodSearchProblem using A* and your foodHeuristic"
@@ -499,7 +507,14 @@ def foodHeuristic(state, problem):
     """
     position, foodGrid = state
     "*** YOUR CODE HERE ***"
-    return 0
+    h = 0
+
+    # For each food position in the list of food grid, calculate maze distances towards the
+    # current position. The maximum of these would be the farthest food point.
+    for foodPos in foodGrid.asList():
+        h= max(h, mazeDistance(position, foodPos, problem.startingGameState))
+
+    return h
 
 class ClosestDotSearchAgent(SearchAgent):
     "Search for all food using a sequence of searches"
@@ -530,7 +545,7 @@ class ClosestDotSearchAgent(SearchAgent):
         problem = AnyFoodSearchProblem(gameState)
 
         "*** YOUR CODE HERE ***"
-        util.raiseNotDefined()
+        return search.ucs(problem)
 
 class AnyFoodSearchProblem(PositionSearchProblem):
     """
@@ -566,6 +581,8 @@ class AnyFoodSearchProblem(PositionSearchProblem):
         x,y = state
 
         "*** YOUR CODE HERE ***"
+        foodGrid = self.food.asList()
+        return state in foodGrid
         util.raiseNotDefined()
 
 def mazeDistance(point1, point2, gameState):
